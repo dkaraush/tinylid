@@ -1,6 +1,6 @@
 # tinylid
 
-**Tiny** **L**anguage **Id**entification for 125 languages, as 4.25MB quantized small model, fitted to be ran on device.
+**Tiny** **L**anguage **Id**entification from audio speech for 125 languages, as 4.25MB quantized small model, fitted to be ran on device.
 
 - **4.25 MB** model file: Whisper-tiny encoder with 4-bit weights, trained with quantization-aware training.
 - Zero dependencies. `no_std` + `alloc` without the default `std` feature.
