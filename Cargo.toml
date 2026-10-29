@@ -1,0 +1,29 @@
+[package]
+name = "tinylid"
+version = "0.1.0"
+edition = "2024"
+description = "Spoken language identification (125 languages, 4-bit Whisper-tiny encoder) with no dependencies"
+
+[lib]
+# staticlib / cdylib on demand: cargo rustc --crate-type staticlib (see README)
+crate-type = ["rlib"]
+
+[features]
+default = ["std"]
+# Without `std` the crate is `no_std` + `alloc`; math comes from the host's libm.
+std = []
+# Split large matrix multiplies across threads (std only). Off by default: on big.LITTLE phones
+# one big core beats several mixed ones, and the host owns concurrency.
+threads = ["std"]
+# C ABI (include/tinylid.h). Without `std` it also carries the allocator / panic runtime a C host needs.
+c-api = []
+# WebAssembly exports (same functions plus tinylid_alloc / tinylid_dealloc for the JS host).
+wasm = []
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
+lto = "thin" # fat LTO de-vectorizes the wasm GEMM kernel (4.5x slower); thin is as fast as none
+codegen-units = 1
+panic = "abort"
