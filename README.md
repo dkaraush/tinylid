@@ -17,12 +17,8 @@ cargo rustc --release --no-default-features --features c-api --lib --crate-type 
 # shared library instead: --crate-type cdylib
 ```
 
-### Modes
-
-- `Exact` pads the clip to 30 s as in training. It is the most accurate and has a fixed cost.
-- `Fast` encodes only the real audio. A 3 s clip costs about 10x less than in `Exact`. The current
-  model was trained on padded input, so `Fast` loses about 1 point on 5 s clips and up to 16 points
-  on 1–2 s clips.
+Besides the 125 languages, the model has a `nospeech` class (silence, hum or background noise).
+Treat it as "nothing to transcribe".
 
 ### Speed (single thread)
 
