@@ -19,13 +19,3 @@ cargo rustc --release --no-default-features --features c-api --lib --crate-type 
 
 Besides the 125 languages, the model has a `nospeech` class (silence, hum or background noise).
 Treat it as "nothing to transcribe".
-
-### Speed (single thread)
-
-| Device | Exact (any length) | Fast (11 s clip) |
-|---|---|---|
-| Samsung F15 / M15 (Cortex-A76) | 2.3 s | 0.72 s |
-| WebAssembly, desktop Chrome | 0.56 s | 0.15 s |
-
-Matrix multiplies run at about half the A76's fp32 peak. Most of the cost is the 30 s window,
-not the kernels.
