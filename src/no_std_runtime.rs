@@ -59,6 +59,8 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
     unsafe { abort() }
 }
 
-/// Builds abort on panic, but Android's precompiled `core`/`alloc` still reference this symbol.
+/// Builds abort on panic, but Android's precompiled `core`/`alloc` still reference this symbol. Nothing else
+/// does, and defining it everywhere collides with any other Rust static library linked into the same binary.
+#[cfg(target_os = "android")]
 #[unsafe(no_mangle)]
 pub extern "C" fn rust_eh_personality() {}
