@@ -20,7 +20,7 @@
 extern crate alloc;
 
 mod compat;
-#[cfg(any(feature = "c-api", feature = "wasm"))]
+#[cfg(any(feature = "ffi", feature = "wasm"))]
 mod ffi;
 mod kernels;
 #[cfg(all(not(feature = "std"), feature = "c-api", not(target_arch = "wasm32"), not(test)))]

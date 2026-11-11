@@ -16,7 +16,9 @@ std = []
 # one big core beats several mixed ones, and the host owns concurrency.
 threads = ["std"]
 # C ABI (include/tinylid.h). Without `std` it also carries the allocator / panic runtime a C host needs.
-c-api = []
+c-api = ["ffi"]
+# The C ABI alone, for a static library that bundles this crate with others and carries one runtime for all.
+ffi = []
 # WebAssembly exports (same functions plus tinylid_alloc / tinylid_dealloc for the JS host).
 wasm = []
 
