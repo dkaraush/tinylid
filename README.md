@@ -1,8 +1,8 @@
 # tinylid
 
-**Tiny** **L**anguage **Id**entification from audio speech for 125 languages, as 4.25MB quantized small model, fitted to be ran on device.
+**Tiny** **L**anguage **Id**entification from audio speech for 15 languages, as 4.22MB quantized small model, fitted to be ran on device.
 
-- **4.25 MB** model file: Whisper-tiny encoder with 4-bit weights, trained with quantization-aware training.
+- **4.22 MB** model file (v12): Whisper-tiny encoder (4 layers) with 4-bit weights, trained with quantization-aware training.
 - Zero dependencies. `no_std` + `alloc` without the default `std` feature.
 - SIMD: explicit NEON on ARM64, auto-vectorized SSE on x86-64 and SIMD128 on WebAssembly.
 - Single-threaded, with no I/O. A loaded model is immutable, so the host can share it and owns all concurrency.
@@ -16,16 +16,3 @@ cargo rustc --release --no-default-features --features c-api --lib --crate-type 
 # include headers are at include/tinylid.h
 # shared library instead: --crate-type cdylib
 ```
-
-Besides the 125 languages, the model has a `nospeech` class (silence, hum or background noise).
-Treat it as "nothing to transcribe".
-
-### Speed (single thread)
-
-| Device | Exact (any length) | Fast (11 s clip) |
-|---|---|---|
-| Samsung F15 / M15 (Cortex-A76) | 2.3 s | 0.72 s |
-| WebAssembly, desktop Chrome | 0.56 s | 0.15 s |
-
-Matrix multiplies run at about half the A76's fp32 peak. Most of the cost is the 30 s window,
-not the kernels.

@@ -1,7 +1,8 @@
 //! Spoken language identification with no dependencies.
 //!
-//! Model: Whisper-tiny encoder (4 layers, d=384) + attention pooling + linear head over 125
-//! languages, weights stored as 4-bit integers with one fp16 scale per 32 weights (~4.3 MB file).
+//! Model: Whisper-tiny encoder (4 layers, d=384) + attention pooling + linear head over the
+//! model's languages (v12: 15 languages + `other`; v7: 125 + `nospeech`), weights
+//! stored as 4-bit integers with one fp16 scale per 32 weights (~4.2 MB file).
 //! Weights are dequantized to f32 on load (~31 MB RAM).
 //!
 //! `no_std` + `alloc` without the default `std` feature; no I/O, no internal threads unless the
